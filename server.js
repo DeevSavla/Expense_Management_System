@@ -3,7 +3,6 @@ import express, { json } from 'express'
 import cors from 'cors'
 import morgan from 'morgan'
 import { config } from 'dotenv'
-import colors from 'cors'
 import { connectDB } from './config/connectdb.js'
 
 //rest object
