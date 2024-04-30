@@ -1,33 +1,33 @@
-//importing packages
-import express, { json } from 'express'
-import cors from 'cors'
-import morgan from 'morgan'
-import { config } from 'dotenv'
-import { connectDB } from './config/connectdb.js'
+// Importing packages
+import express from "express";
+import cors from "cors";
+import morgan from "morgan";
+import { config } from "dotenv";
+import colors from "colors";
+import connectDB from "./config/connectdb.js";
+import userRoutes from "./routes/user.route.js"; // Importing user routes
 
-//rest object
+// Load environment variables
+config();
+
+// Connect to the database
+connectDB();
+
+// Create an Express app
 const app = express();
 
-//config 
-config()
+// Middleware
+app.use(cors());
+app.use(morgan("dev"));
+app.use(express.json());
 
-//database connection
-connectDB()
+// Routes
+app.use("/users", userRoutes); // Use user routes
 
-//middlewares
-app.use(cors())
-app.use(morgan('dev'))
-app.use(json())
+// Initialize port
+const PORT = process.env.PORT || 8080;
 
-//routes
-app.get('/',(req,res)=>{
-    res.send('<h1>Hello from server</h1>');
-})
-
-//initialise port
-const PORT = 8080 || process.env.PORT
-
-//listen
-app.listen(PORT,()=>{
-    console.log(`Server running on port ${PORT}`)
-})
+// Listen to port
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});

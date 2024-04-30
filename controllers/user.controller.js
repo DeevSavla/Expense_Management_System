@@ -1,17 +1,18 @@
-import {user} from '../models/user.model'
+import {user} from '../models/user.model.js'
 
 const loginController=async (req,res)=>{
     try{
         const {email,password} = req.body
-        const user = await user.findOne({email},{password})
-        if(!user){
+        const findUser = await user.findOne({email},{password})
+        if(!findUser){
             return res.status(404).send('User not found')
         }
         res.status(200).json({
             success:true,
-            user
+            findUser
         })
     } catch(error){
+        console.log(error)
         res.status(400).json({
             success:false,
             error:'Cannot log in properly'
@@ -28,6 +29,7 @@ const registerController = async (req,res)=>{
             newUser
         })
     } catch(error){
+        console.log(error)
         res.status(400).json({
             success:false,
             error:'Registration failed'
@@ -38,5 +40,4 @@ const registerController = async (req,res)=>{
 export {
     loginController,
     registerController,
-
 }
