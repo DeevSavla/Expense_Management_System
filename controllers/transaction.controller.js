@@ -1,8 +1,24 @@
 import {transaction} from '../models/transaction.model.js'
+import moment from 'moment'
 
 const getAllTransactions = async (req,res) =>{
     try{
-        const transactions = await transaction.find({userid:req.body.userid})
+        const {frequency,selectedDate,type,category} = req.body
+        const transactions = await transaction.find({
+            ...(frequency !== 'custom' ? {
+                date:{
+                    $gt:moment().subtract(Number(frequency),'d').toDate(),
+                },
+            }:{
+                date:{
+                    $gte:selectedDate[0],
+                    $lte:selectedDate[1]
+                }
+            }),
+            userid:req.body.userid,
+            ...(type!=='all' && {type}),
+            ...(category!=='all' && {category})
+        })
         res.status(200).json({
             success:true,
             transactions

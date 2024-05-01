@@ -28,7 +28,7 @@ function Header() {
   </div>
   <div className='flex items-center'>
     {true && <p className='mr-4'>{loginUser}</p>}
-    <button className='bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600' onClick={logoutHandler}>
+    <button className='bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700' onClick={logoutHandler}>
       Logout
     </button>
   </div>
