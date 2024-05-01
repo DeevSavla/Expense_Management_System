@@ -20,7 +20,7 @@ function Header() {
   }
 
   return (
-<div className='flex justify-between bg-gray-100 p-4'>
+<div className='flex justify-between bg-gray-100 p-4 items-center'>
   <div>
     <Link to='/' className='text-black text-lg font-semibold'>
       Expense Manager

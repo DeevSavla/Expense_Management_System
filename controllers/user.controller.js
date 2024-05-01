@@ -1,11 +1,14 @@
-import { user } from '../models/user.model.js'
+import {user} from '../models/user.model.js'
 
 const loginController = async (req, res) => {
     try {
-        const { email, password } = req.body
+        const { email,password } = req.body
         const findUser = await user.findOne({email})
         if (!findUser) {
             return res.status(404).send('User not found')
+        }
+        if(password!==findUser.password){
+            return res.status(401).send('Password Incorrect')
         }
         res.status(200).json({
             success: true,

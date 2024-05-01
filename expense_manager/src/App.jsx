@@ -17,8 +17,7 @@ function App() {
 }
 
 export function ProtectedRoute(props){
-  if(localStorage.getItem('user'))
-  {
+  if(localStorage.getItem('user')){
     return props.children
   } else{
     return <Navigate to='/login'/>
