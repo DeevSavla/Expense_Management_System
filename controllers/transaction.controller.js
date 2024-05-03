@@ -17,7 +17,7 @@ const getAllTransactions = async (req,res) =>{
             }),
             userid:req.body.userid,
             ...(type!=='all' && {type}),
-            ...(category!=='all' && {category})
+            ...(category!=='all' && {category}),
         })
         res.status(200).json({
             success:true,
@@ -26,6 +26,17 @@ const getAllTransactions = async (req,res) =>{
     } catch(error){
         console.log(error)
         res.status(500).json(error)
+    }
+}
+
+const editTransaction = async (req,res)=>{
+    try{
+        await transaction.findOneAndUpdate({_id:req.body.transactionId},req.body.payload)
+        console.log(req.body.payload)
+        res.status(200).send('Edit successfully')
+    } catch(error){
+        console.log(error)
+        res.status(500).send(error)
     }
 }
 
@@ -44,7 +55,19 @@ const addTransaction = async (req,res) =>{
     }
 }
 
+const deleteTransaction = async (req, res) => {
+    try {
+      await transaction.findOneAndDelete({ _id: req.body.transacationId });
+      res.status(200).send("Transaction Deleted!");
+    } catch (error) {
+      console.log(error);
+      res.status(500).json(error);
+    }
+  };
+
 export{
     getAllTransactions,
     addTransaction,
+    editTransaction,
+    deleteTransaction
 }

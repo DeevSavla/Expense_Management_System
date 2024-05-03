@@ -18,29 +18,33 @@ function Register() {
     }
   };
 
-  useEffect(()=>{
-    if(localStorage.getItem('user')){
+  useEffect(() => {
+    if (localStorage.getItem('user')) {
       navigate('/')
     }
-  },[navigate])
+  }, [navigate])
 
   return (
     <>
-      <div className="flex justify-center items-center h-screen">
-        <Form className='w-full sm:w-2/3 md:w-1/2 lg:w-1/3 xl:w-1/4 border border-black p-5' onFinish={submitHandler}>
-          <h1 className='text-2xl text-center mb-5'>Register Form</h1>
-          <Form.Item label='Name' name='name'>
-            <Input className='w-full' />
+      <div className="flex justify-center items-center h-screen bg-gradient-to-r from-purple-400 via-purple-500 to-pink-500">
+        <Form className="w-full sm:w-2/3 md:w-1/2 lg:w-1/3 xl:w-1/4 border border-purple-900 p-5 rounded-lg bg-white">
+          <h1 className="text-2xl text-center mb-5 text-purple-900">Register Form</h1>
+          <Form.Item label="Name" name="name">
+            <Input className="w-full bg-purple-100 rounded-lg" />
           </Form.Item>
-          <Form.Item label='Email' name='email'>
-            <Input type='email' className='w-full' />
+          <Form.Item label="Email" name="email">
+            <Input type="email" className="w-full bg-purple-100 rounded-lg" />
           </Form.Item>
-          <Form.Item label='Password' name='password'>
-            <Input type='password' className='w-full' />
+          <Form.Item label="Password" name="password">
+            <Input type="password" className="w-full bg-purple-100 rounded-lg" />
           </Form.Item>
-          <div className='text-blue-500 flex justify-between'>
-            <Link to='/login'>Already Registered? Click here to login</Link>
-            <button className='bg-blue-500 text-white py-1 px-2 rounded-lg hover:bg-blue-700'>Register</button>
+          <div className="text-purple-500 flex justify-between">
+            <Link to="/login" className="text-purple-500 hover:text-purple-700">
+              Already Registered? Click here to login
+            </Link>
+            <button className="bg-purple-500 text-white py-1 px-2 rounded-lg hover:bg-purple-700">
+              Register
+            </button>
           </div>
         </Form>
       </div>
