@@ -36,8 +36,8 @@ function Analytics({ allTransactions }) {
                             <h5 className='text-green-800 mb-2'>Income: {totalIncomeTransactions}</h5>
                             <h5 className='text-red-500 mb-2'>Expense: {totalExpenseTransactions}</h5>
                             <div className='flex gap-4'>
-                                <Progress type='circle' strokeColor={'green'} percent={totalIncomePercentage.toFixed(0)} />
-                                <Progress type='circle' strokeColor={'red'} percent={totalExpensePercentage.toFixed(0)} />
+                                <Progress type='circle' strokeColor={'green'} percent={totalIncomePercentage.toFixed(0)} size={100}/>
+                                <Progress type='circle' strokeColor={'red'} percent={totalExpensePercentage.toFixed(0)} size={100}/>
                             </div>
                         </div>
                     </div>
@@ -49,9 +49,10 @@ function Analytics({ allTransactions }) {
                             <h5 className='text-green-800 mb-2'>Income: {totalIncomeTurnover}</h5>
                             <h5 className='text-red-500 mb-2'>Expense: {totalExpenseTurnover}</h5>
                             <div className='flex gap-4'>
-                                <Progress type='circle' strokeColor={'green'} percent={incomeTurnoverPercentage.toFixed(0)} />
-                                <Progress type='circle' strokeColor={'red'} percent={expenseTurnoverPercentage.toFixed(0)} />
+                                <Progress type='circle' strokeColor={'green'} percent={incomeTurnoverPercentage.toFixed(0)} size={100} />
+                                <Progress type='circle' strokeColor={'red'} percent={expenseTurnoverPercentage.toFixed(0)} size={100} />
                             </div>
+
                         </div>
                     </div>
                     <div className='border border-purple-900 p-4 md:p-6 bg-purple-100'>

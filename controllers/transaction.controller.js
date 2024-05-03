@@ -19,6 +19,7 @@ const getAllTransactions = async (req,res) =>{
             ...(type!=='all' && {type}),
             ...(category!=='all' && {category}),
         })
+
         res.status(200).json({
             success:true,
             transactions
@@ -36,7 +37,7 @@ const editTransaction = async (req,res)=>{
         res.status(200).send('Edit successfully')
     } catch(error){
         console.log(error)
-        res.status(500).send(error)
+        res.status(500).json(error)
     }
 }
 

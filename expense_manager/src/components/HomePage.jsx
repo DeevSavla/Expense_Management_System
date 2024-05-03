@@ -82,24 +82,11 @@ const HomePage = () => {
     }
   };
 
-  const getAllTransactions = async () => {
+  const handleSubmit = async (values,record) => {
     try {
       const getUser = JSON.parse(localStorage.getItem('user'))
-      const res = await axios.post('http://localhost:8080/transactions/get-transaction', { userid: getUser.findUser._id, frequency, selectedDate, type, category })
-      setAllTransactions(res.data.transactions)
-    } catch (error) {
-      console.log(error)
-      message.error('Error in Fetching Transactions')
-    }
-  }
-
-  useEffect(() => {
-    getAllTransactions();
-  }, [frequency,showModal, selectedDate, type, category, setAllTransactions,deleted])
-
-  const handleSubmit = async (values) => {
-    try {
-      const getUser = JSON.parse(localStorage.getItem('user'))
+      console.log('Helloooooo')
+      console.log(record)
       if (editable) {
         await axios.post('http://localhost:8080/transactions/edit-transaction', {
           payload: {
@@ -121,7 +108,23 @@ const HomePage = () => {
       setShowModal(false)
       message.error('Failed to Add Transaction')
     }
+    console.log(editable)
   }
+
+  const getAllTransactions = async () => {
+    try {
+      const getUser = JSON.parse(localStorage.getItem('user'))
+      const res = await axios.post('http://localhost:8080/transactions/get-transaction', { userid: getUser.findUser._id, frequency, selectedDate, type, category })
+      setAllTransactions(res.data.transactions)
+    } catch (error) {
+      console.log(error)
+      message.error('Error in Fetching Transactions')
+    }
+  }
+
+  useEffect(() => {
+    getAllTransactions();
+  }, [frequency,showModal, selectedDate, type, category, setAllTransactions,deleted])
 
   return (
     <Layout>
