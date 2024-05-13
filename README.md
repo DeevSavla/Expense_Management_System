@@ -1,1 +1,1 @@
-An expense management app for users
+MERN Expense Management System

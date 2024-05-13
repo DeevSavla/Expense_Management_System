@@ -83,7 +83,7 @@ function Analytics({ allTransactions }) {
                                     amount > 0 &&
                                     <div key={category}>
                                         <h5>{category}</h5>
-                                        <Progress percent={((amount / totalIncomeTurnover) * 100).toFixed(0)} />
+                                        <Progress percent={((amount / totalExpenseTurnover) * 100).toFixed(0)} />
                                     </div>
                                 );
                             })}
