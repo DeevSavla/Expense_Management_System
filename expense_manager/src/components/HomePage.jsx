@@ -15,6 +15,7 @@ const HomePage = () => {
   const [type, setType] = useState('all')
   const [category, setCategory] = useState('all')
   const [viewData, setViewData] = useState('table')
+  const [addRecord, setAddRecord] = useState(false)
   const [editable, setEditable] = useState(null)
   const [deleted,setDeleted] = useState(false)
 
@@ -85,8 +86,6 @@ const HomePage = () => {
   const handleSubmit = async (values,record) => {
     try {
       const getUser = JSON.parse(localStorage.getItem('user'))
-      console.log('Helloooooo')
-      console.log(record)
       if (editable) {
         await axios.post('http://localhost:8080/transactions/edit-transaction', {
           payload: {
@@ -99,16 +98,17 @@ const HomePage = () => {
         message.success('Transaction Updated Successfully')
         setShowModal(false)
       } else {
+        setAddRecord((e)=>!e)
         await axios.post('http://localhost:8080/transactions/add-transaction', { ...values, userid: getUser.findUser._id })
         message.success('Transaction Added Successfully')
         setEditable(null)
+        setAddRecord((e)=>!e)
         setShowModal(false)
       }
     } catch (error) {
       setShowModal(false)
       message.error('Failed to Add Transaction')
     }
-    console.log(editable)
   }
 
   const getAllTransactions = async () => {
@@ -124,7 +124,7 @@ const HomePage = () => {
 
   useEffect(() => {
     getAllTransactions();
-  }, [frequency,showModal, selectedDate, type, category, setAllTransactions,deleted])
+  }, [frequency,addRecord, selectedDate,editable, type, category, setAllTransactions,deleted])
 
   return (
     <Layout>

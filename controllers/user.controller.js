@@ -24,7 +24,8 @@ const loginController = async (req, res) => {
 
 const registerController = async (req, res) => {
     try {
-        const newUser = new user(req.body);
+        const { name, email, password } = req.body;
+        const newUser = new user({ name, email, password });
         await newUser.save();
         res.status(201).json({ success: true, newUser });
     }
