@@ -71,7 +71,7 @@ const HomePage = () => {
   const handleDelete = async (record) => {
     try {
       setDeleted((e)=>!e)
-      await axios.post("http://localhost:8080/transactions/delete-transaction", {
+      await axios.post("https://expense-management-system-dun.vercel.app/delete-transaction", {
         transacationId: record._id,
       })
       message.success("Transaction Deleted!");
@@ -87,7 +87,7 @@ const HomePage = () => {
     try {
       const getUser = JSON.parse(localStorage.getItem('user'))
       if (editable) {
-        await axios.post('http://localhost:8080/transactions/edit-transaction', {
+        await axios.post('https://expense-management-system-dun.vercel.app/edit-transaction', {
           payload: {
             ...values,
             userid: getUser.findUser._id,
@@ -99,7 +99,7 @@ const HomePage = () => {
         setShowModal(false)
       } else {
         setAddRecord((e)=>!e)
-        await axios.post('http://localhost:8080/transactions/add-transaction', { ...values, userid: getUser.findUser._id })
+        await axios.post('https://expense-management-system-dun.vercel.app/add-transaction', { ...values, userid: getUser.findUser._id })
         message.success('Transaction Added Successfully')
         setEditable(null)
         setAddRecord((e)=>!e)
@@ -114,7 +114,7 @@ const HomePage = () => {
   const getAllTransactions = async () => {
     try {
       const getUser = JSON.parse(localStorage.getItem('user'))
-      const res = await axios.post('http://localhost:8080/transactions/get-transaction', { userid: getUser.findUser._id, frequency, selectedDate, type, category })
+      const res = await axios.post('https://expense-management-system-dun.vercel.app/get-transaction', { userid: getUser.findUser._id, frequency, selectedDate, type, category })
       setAllTransactions(res.data.transactions)
     } catch (error) {
       console.log(error)

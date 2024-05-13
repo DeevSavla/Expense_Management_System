@@ -13,7 +13,7 @@ function Register() {
 
   const submitHandler = async () => {
     try {
-      await axios.post('http://localhost:8080/users/register', formData);
+      await axios.post('https://expense-management-system-dun.vercel.app/register', formData);
       message.success('Registration successful.');
       navigate('/login');
     } catch (error) {

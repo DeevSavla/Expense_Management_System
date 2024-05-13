@@ -8,7 +8,7 @@ const Login = () => {
 
   const submitHandler = async (values) => {
     try {
-      const { data } = await axios.post("http://localhost:8080/users/login", values);
+      const { data } = await axios.post("https://expense-management-system-dun.vercel.app/login", values);
       message.success("login success");
       localStorage.setItem("user", JSON.stringify({ ...data }));
       navigate("/");
