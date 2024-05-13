@@ -19,7 +19,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-    origin:["https://expense-management-system-rk9d.vercel.app"],
+    origin:["https://expense-management-system-rk9d.vercel.app/"],
     methods:["POST","GET"],
     credentials:true
 }));
