@@ -30,7 +30,9 @@ app.use(express.json());
 
 mongoose.connect('mongodb+srv://savladeev:deev123@cluster0.xmzfgcq.mongodb.net/expenseApp?retryWrites=true&w=majority&appName=Cluster0')
 
-
+app.get('/',(req,res)=>{
+    res.json("Hello");
+})
 // Routes
 app.use("/users", userRoutes); // user route
 app.use("/transactions",transactionRouter) // transaction route
