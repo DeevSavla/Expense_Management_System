@@ -1,10 +1,9 @@
-// Importing packages
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
 import { config } from "dotenv";
 import connectDB from "./config/connectdb.js";
-import userRoutes from "./routes/user.route.js"; // Importing user routes
+import userRoutes from "./routes/user.route.js"; 
 import transactionRouter from "./routes/transaction.route.js";
 
 // Load environment variables
