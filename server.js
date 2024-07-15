@@ -15,15 +15,14 @@ connectDB();
 // Create an Express app
 const app = express();
 
+app.use(morgan("dev"));
+app.use(express.json());
 // Middleware
 app.use(cors());
 
-app.use(morgan("dev"));
-app.use(express.json());
-
 // Routes
-app.use("/users", userRoutes); // user route
-app.use("/transactions",transactionRouter) // transaction route
+app.use("/api/v1/users", userRoutes); // user route
+app.use("/api/v1/transactions",transactionRouter) // transaction route
 
 // Initialize port
 const PORT = process.env.PORT || 8080;

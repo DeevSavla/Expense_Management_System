@@ -13,7 +13,7 @@ function Register() {
 
   const submitHandler = async () => {
     try {
-      await axios.post('/users/register', formData);
+      await axios.post('/api/v1/users/register', formData);
       message.success('Registration successful.');
       navigate('/login');
     } catch (error) {

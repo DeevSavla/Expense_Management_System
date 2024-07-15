@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Form, Input, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -8,7 +8,7 @@ const Login = () => {
 
   const submitHandler = async (values) => {
     try {
-      const { data } = await axios.post("/users/login", values);
+      const { data } = await axios.post("/api/v1/users/login", values);
       message.success("login success");
       localStorage.setItem("user", JSON.stringify({ ...data }));
       navigate("/");
