@@ -4,6 +4,7 @@ import { Modal, Form, Input, Select, message, Table, DatePicker } from 'antd'
 import axios from 'axios'
 import moment from 'moment'
 import { UnorderedListOutlined, AreaChartOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons'
+import { baseUrl } from '../utilities/baseUrl'
 import Analytics from './Analytics'
 const { RangePicker } = DatePicker;
 
@@ -71,7 +72,7 @@ const HomePage = () => {
   const handleDelete = async (record) => {
     try {
       setDeleted((e)=>!e)
-      await axios.post("/api/v1/transactions/delete-transaction", {
+      await axios.post(`${baseUrl}/transactions/delete-transaction`, {
         transacationId: record._id,
       })
       message.success("Transaction Deleted!");
@@ -87,7 +88,7 @@ const HomePage = () => {
     try {
       const getUser = JSON.parse(localStorage.getItem('user'))
       if (editable) {
-        await axios.post('/api/v1/transactions/edit-transaction', {
+        await axios.post(`${baseUrl}/transactions/edit-transaction`, {
           payload: {
             ...values,
             userid: getUser.findUser._id,
@@ -99,7 +100,7 @@ const HomePage = () => {
         setShowModal(false)
       } else {
         setAddRecord((e)=>!e)
-        await axios.post('/api/v1/transactions/add-transaction', { ...values, userid: getUser.findUser._id })
+        await axios.post(`${baseUrl}/transactions/add-transaction`, { ...values, userid: getUser.findUser._id })
         message.success('Transaction Added Successfully')
         setEditable(null)
         setAddRecord((e)=>!e)
@@ -114,7 +115,7 @@ const HomePage = () => {
   const getAllTransactions = async () => {
     try {
       const getUser = JSON.parse(localStorage.getItem('user'))
-      const res = await axios.post('/api/v1/transactions/get-transaction', { userid: getUser.findUser._id, frequency, selectedDate, type, category })
+      const res = await axios.post(`${baseUrl}/transactions/get-transaction`, { userid: getUser.findUser._id, frequency, selectedDate, type, category })
       setAllTransactions(res.data.transactions)
     } catch (error) {
       console.log(error)

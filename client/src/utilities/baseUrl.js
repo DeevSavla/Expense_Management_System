@@ -1,0 +1,1 @@
+export const baseUrl = 'https://expense-backend-qu7e.onrender.com'

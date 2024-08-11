@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Form, Input, message } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { baseUrl } from '../utilities/baseUrl'
 
 function Register() {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ function Register() {
 
   const submitHandler = async () => {
     try {
-      await axios.post('/api/v1/users/register', formData);
+      await axios.post(`${baseUrl}/users/register`, formData);
       message.success('Registration successful.');
       navigate('/login');
     } catch (error) {
