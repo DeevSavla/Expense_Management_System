@@ -21,8 +21,8 @@ app.use(express.json());
 app.use(cors());
 
 // Routes
-app.use("/api/v1/users", userRoutes); // user route
-app.use("/api/v1/transactions",transactionRouter) // transaction route
+app.use("/users", userRoutes); // user route
+app.use("/transactions",transactionRouter) // transaction route
 
 // Initialize port
 const PORT = process.env.PORT || 8080;
