@@ -24,48 +24,62 @@ const HomePage = () => {
     {
       title: 'Date',
       dataIndex: 'date',
-      render: (text) => <span>{moment(text).format('YYYY-MM-DD')}</span>,
-      align: 'center'
+      render: (text) => <span className="font-medium">{moment(text).format('YYYY-MM-DD')}</span>,
+      align: 'center',
+      className: 'bg-purple-50'
     },
     {
       title: 'Amount',
       dataIndex: 'amount',
-      align: 'center'
+      align: 'center',
+      className: 'bg-purple-50',
+      render: (text) => <span className="font-medium">₹{text}</span>
     },
     {
       title: 'Type',
       dataIndex: 'type',
-      align: 'center'
+      align: 'center',
+      className: 'bg-purple-50',
+      render: (text) => (
+        <span className={`px-3 py-1 rounded-full ${text === 'income' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+          {text.charAt(0).toUpperCase() + text.slice(1)}
+        </span>
+      )
     },
     {
       title: 'Category',
       dataIndex: 'category',
-      align: 'center'
+      align: 'center',
+      className: 'bg-purple-50',
+      render: (text) => <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full">{text.charAt(0).toUpperCase() + text.slice(1)}</span>
     },
     {
       title: 'Reference',
       dataIndex: 'reference',
-      align: 'center'
+      align: 'center',
+      className: 'bg-purple-50'
     },
     {
       title: 'Description',
       dataIndex: 'description',
-      align: 'center'
+      align: 'center',
+      className: 'bg-purple-50'
     },
     {
       title: 'Actions',
       render: (record) => (
-        <div>
-          <EditOutlined onClick={() => {
+        <div className="flex justify-center space-x-3">
+          <EditOutlined className="text-blue-500 text-xl hover:text-blue-700 cursor-pointer" onClick={() => {
             setEditable(record)
             setShowModal(true)
           }} />
-          <DeleteOutlined className='mx-3' onClick={() => {
+          <DeleteOutlined className="text-red-500 text-xl hover:text-red-700 cursor-pointer" onClick={() => {
             handleDelete(record);
           }} />
         </div>
       ),
-      align: 'center'
+      align: 'center',
+      className: 'bg-purple-50'
     }
   ]
 
@@ -129,71 +143,108 @@ const HomePage = () => {
 
   return (
     <Layout>
-      <div className='flex flex-col sm:flex-row justify-between p-5 shadow-md items-center bg-purple-300'>
-        <div className='flex flex-col sm:flex-row gap-3 sm:gap-5'>
-          <div>
-            <h6 className="text-white">Select Frequency</h6>
-            <Select value={frequency} onChange={(values) => setFrequency(values)} className="w-full sm:w-32">
-              <Select.Option value='7'>Last 1 Week</Select.Option>
-              <Select.Option value='30'>Last 1 Month</Select.Option>
-              <Select.Option value='365'>Last 1 Year</Select.Option>
-              <Select.Option value='custom'>Custom</Select.Option>
-            </Select>
-            {frequency === 'custom' && <RangePicker value={selectedDate} onChange={(values) => setSelectedDate(values)} />}
+      <div className='bg-gradient-to-r from-purple-500 to-purple-700 p-6 rounded-lg shadow-lg mb-6'>
+        <div className='flex flex-col sm:flex-row justify-between items-center gap-4'>
+          <div className='flex flex-col sm:flex-row gap-4 w-full sm:w-auto'>
+            <div className='w-full sm:w-auto'>
+              <h6 className="text-white font-semibold mb-2">Select Frequency</h6>
+              <Select value={frequency} onChange={(values) => setFrequency(values)} 
+                     className="w-full sm:w-40" style={{ borderRadius: '8px' }}>
+                <Select.Option value='7'>Last 1 Week</Select.Option>
+                <Select.Option value='30'>Last 1 Month</Select.Option>
+                <Select.Option value='365'>Last 1 Year</Select.Option>
+                <Select.Option value='custom'>Custom</Select.Option>
+              </Select>
+              {frequency === 'custom' && (
+                <div className="mt-2">
+                  <RangePicker value={selectedDate} onChange={(values) => setSelectedDate(values)} 
+                             className="w-full" style={{ borderRadius: '8px' }} />
+                </div>
+              )}
+            </div>
+            <div className='w-full sm:w-auto'>
+              <h6 className="text-white font-semibold mb-2">Select Type</h6>
+              <Select value={type} onChange={(values) => setType(values)} 
+                     className="w-full sm:w-32" style={{ borderRadius: '8px' }}>
+                <Select.Option value='all'>All</Select.Option>
+                <Select.Option value='income'>Income</Select.Option>
+                <Select.Option value='expense'>Expense</Select.Option>
+              </Select>
+            </div>
+            <div className='w-full sm:w-auto'>
+              <h6 className="text-white font-semibold mb-2">Select Category</h6>
+              <Select value={category} onChange={(values) => setCategory(values)} 
+                     className="w-full sm:w-36" style={{ borderRadius: '8px' }}>
+                <Select.Option value='all'>All</Select.Option>
+                <Select.Option value='salary'>Salary</Select.Option>
+                <Select.Option value='tip'>Tip</Select.Option>
+                <Select.Option value='emi'>EMI</Select.Option>
+                <Select.Option value='food'>Food</Select.Option>
+                <Select.Option value='movie'>Movie</Select.Option>
+                <Select.Option value='bills'>Bills</Select.Option>
+                <Select.Option value='medical'>Medical</Select.Option>
+                <Select.Option value='fee'>Fee</Select.Option>
+                <Select.Option value='tax'>Tax</Select.Option>
+              </Select>
+            </div>
           </div>
-          <div>
-            <h6 className="text-white">Select Type</h6>
-            <Select value={type} onChange={(values) => setType(values)} className="w-full sm:w-28">
-              <Select.Option value='all'>All</Select.Option>
-              <Select.Option value='income'>Income</Select.Option>
-              <Select.Option value='expense'>Expense</Select.Option>
-            </Select>
-          </div>
-          <div>
-            <h6 className="text-white">Select Category</h6>
-            <Select value={category} onChange={(values) => setCategory(values)} className="w-full sm:w-28">
-              <Select.Option value='all'>All</Select.Option>
-              <Select.Option value='salary'>Salary</Select.Option>
-              <Select.Option value='tip'>Tip</Select.Option>
-              <Select.Option value='emi'>EMI</Select.Option>
-              <Select.Option value='food'>Food</Select.Option>
-              <Select.Option value='movie'>Movie</Select.Option>
-              <Select.Option value='bills'>Bills</Select.Option>
-              <Select.Option value='medical'>Medical</Select.Option>
-              <Select.Option value='fee'>Fee</Select.Option>
-              <Select.Option value='tax'>Tax</Select.Option>
-            </Select>
-          </div>
-          <div className='flex items-center gap-4 px-2 '>
-            <UnorderedListOutlined className={`text-xl ${viewData === 'table' ? 'text-white' : 'text-gray-400'}`} onClick={() => setViewData('table')} />
-            <AreaChartOutlined className={`text-xl ${viewData === 'analytics' ? 'text-white' : 'text-gray-400'}`} onClick={() => setViewData('analytics')} />
+          <div className='flex items-center gap-6'>
+            <div className='flex gap-4'>
+              <UnorderedListOutlined className={`text-2xl cursor-pointer transition-colors duration-200 ${viewData === 'table' ? 'text-white' : 'text-gray-300 hover:text-white'}`} 
+                onClick={() => setViewData('table')} />
+              <AreaChartOutlined className={`text-2xl cursor-pointer transition-colors duration-200 ${viewData === 'analytics' ? 'text-white' : 'text-gray-300 hover:text-white'}`} 
+                onClick={() => setViewData('analytics')} />
+            </div>
+            <button className='bg-white text-purple-700 py-2 px-6 rounded-lg hover:bg-purple-100 transition-colors duration-200 font-semibold shadow-md' 
+              onClick={() => setShowModal(true)}>
+              Add New
+            </button>
           </div>
         </div>
-        <button className='bg-purple-700 text-white py-1 px-2 rounded-lg hover:bg-purple-500 sm:py-2 sm:px-4 md:py-3 md:px-6 lg:py-3 lg:px-6' onClick={() => setShowModal(true)}>Add New</button>
       </div>
 
-      {viewData === 'table' ?
-        <Table columns={columns} dataSource={allTransactions} rowKey={(record) => record._id} /> :
-        <Analytics allTransactions={allTransactions} />
-      }
+      <div className='bg-white rounded-lg shadow-lg p-6'>
+        {viewData === 'table' ? (
+          <Table 
+            columns={columns} 
+            dataSource={allTransactions} 
+            rowKey={(record) => record._id}
+            className="rounded-lg overflow-hidden"
+            pagination={{
+              className: "px-4",
+              showSizeChanger: true,
+              showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`
+            }}
+          />
+        ) : (
+          <Analytics allTransactions={allTransactions} />
+        )}
+      </div>
 
-      <Modal title={editable ? 'Edit Transaction' : 'Add Transaction'}
+      <Modal 
+        title={<span className="text-xl font-semibold">{editable ? 'Edit Transaction' : 'Add Transaction'}</span>}
         open={showModal}
         onCancel={() => setShowModal(false)}
         footer={false}
+        className="rounded-lg"
       >
-        <Form layout='vertical' onFinish={handleSubmit} initialValues={editable}>
+        <Form 
+          layout='vertical' 
+          onFinish={handleSubmit} 
+          initialValues={editable}
+          className="mt-4"
+        >
           <Form.Item label='Amount' name='amount'>
-            <Input type='text' />
+            <Input type='text' className="rounded-lg" placeholder="Enter amount" />
           </Form.Item>
           <Form.Item label='Type' name='type'>
-            <Select>
+            <Select className="rounded-lg">
               <Select.Option value='income'>Income</Select.Option>
               <Select.Option value='expense'>Expense</Select.Option>
             </Select>
           </Form.Item>
           <Form.Item label='Category' name='category'>
-            <Select>
+            <Select className="rounded-lg">
               <Select.Option value='salary'>Salary</Select.Option>
               <Select.Option value='tip'>Tip</Select.Option>
               <Select.Option value='emi'>EMI</Select.Option>
@@ -206,16 +257,18 @@ const HomePage = () => {
             </Select>
           </Form.Item>
           <Form.Item label='Date' name='date'>
-            <Input type='date' />
+            <Input type='date' className="rounded-lg" />
           </Form.Item>
           <Form.Item label='Reference' name='reference'>
-            <Input />
+            <Input className="rounded-lg" placeholder="Enter reference" />
           </Form.Item>
           <Form.Item label='Description' name='description'>
-            <Input />
+            <Input className="rounded-lg" placeholder="Enter description" />
           </Form.Item>
           <div className="flex justify-end">
-            <button type='submit' className='bg-purple-500 text-white py-1 px-2 rounded-lg'>SAVE</button>
+            <button type='submit' className='bg-purple-600 text-white py-2 px-6 rounded-lg hover:bg-purple-700 transition-colors duration-200 font-semibold'>
+              {editable ? 'Update' : 'Add'}
+            </button>
           </div>
         </Form>
       </Modal>
