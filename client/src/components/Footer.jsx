@@ -2,8 +2,12 @@ import React from 'react'
 
 function Footer() {
   return (
-    <div className='bg-blue-600 py-4 px-6 text-white flex justify-center items-center fixed bottom-0 w-full shadow-md'>
-      <p className='text-center font-semibold'>All rights reserved by Deev Savla</p>
+    <div className="bg-blue-600 py-4">
+      <div className="container mx-auto px-4">
+        <p className="text-center text-white">
+          © 2024 ExpenseTracker. All rights reserved.
+        </p>
+      </div>
     </div>
   )
 }
